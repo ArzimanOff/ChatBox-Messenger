@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "166537530710",
+    "project_id": "chatbox-messager-arzimanoff",
+    "storage_bucket": "chatbox-messager-arzimanoff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166537530710:android:ecdb4ac34116d45b52daf7",
+        "android_client_info": {
+          "package_name": "com.arziman_off.chatbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7IvFevaHrW07Z7pcNCN0xgvMbJP2nSUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
