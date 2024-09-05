@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChatBox</string>
+    <string name="chatBoxLogInTopText">Welcome\nto the \nChatBox messenger!</string>
 </resources>

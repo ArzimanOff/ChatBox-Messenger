@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+
+    android:padding="32dp"
+    >
+
+    <TextView
+        android:id="@+id/chatBoxLogInTopText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="@string/chatBoxLogInTopText"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEmailLoginTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="Ваш email"
+        android:textSize="12sp"
+        android:textAlignment="viewStart"
+        android:textStyle="normal"
+
+        app:layout_constraintBottom_toTopOf="@id/etEmailLogin"
+        app:layout_constraintStart_toStartOf="@id/etEmailLogin"
+        app:layout_constraintEnd_toEndOf="@id/etEmailLogin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+
+        />
+
+    <EditText
+        android:id="@+id/etEmailLogin"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+
+        android:inputType="textEmailAddress"
+        android:hint="example@email.com"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailLoginTitle"
+        app:layout_constraintBottom_toTopOf="@id/tvPasswordLoginTitle"
+        />
+
+    <TextView
+        android:id="@+id/tvPasswordLoginTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="Ваш пароль"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@id/etPasswordLogin"
+        app:layout_constraintStart_toStartOf="@id/etPasswordLogin"
+        app:layout_constraintEnd_toEndOf="@id/etPasswordLogin"
+        app:layout_constraintTop_toBottomOf="@id/etEmailLogin"
+        />
+
+    <EditText
+        android:id="@+id/etPasswordLogin"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+
+        android:inputType="textPassword"
+        android:hint="Ваш пароль"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordLoginTitle"
+        app:layout_constraintBottom_toTopOf="@id/btnLogin"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Войти"
+        android:drawableEnd=""
+        android:textSize="24sp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPasswordLogin"
+        app:layout_constraintBottom_toTopOf="@id/tvForgotPassword"
+
+        />
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="Восстановить пароль"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textStyle="normal"
+
+        android:paddingVertical="8dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvRegisterBtnTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="Еще нет аккаунта?"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@id/btnRegister"
+        app:layout_constraintEnd_toEndOf="@id/btnRegister"
+        app:layout_constraintStart_toStartOf="@id/btnRegister" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Зарегистрироваться"
+        android:drawableEnd=""
+        android:textSize="24sp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
