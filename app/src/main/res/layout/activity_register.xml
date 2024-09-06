@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".RegisterActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:id="@+id/chatBoxRegisterTopText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:padding="32dp"
+
+            android:text="Регистрация"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEmailRegisterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Ваш email"
+            android:textSize="12sp"
+            android:textAlignment="viewStart"
+            android:textStyle="normal"
+            />
+        <EditText
+            android:id="@+id/etEmailRegister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:inputType="textEmailAddress"
+            android:hint="example@email.com"
+            />
+        <TextView
+            android:id="@+id/tvPasswordRegisterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Пароль"
+            android:textSize="12sp"
+            android:textAlignment="viewStart"
+            android:textStyle="normal"
+            />
+        <EditText
+            android:id="@+id/etPasswordRegister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:inputType="textPassword"
+            android:hint="Придумайте пароль"
+            />
+        <TextView
+            android:id="@+id/tvNameRegisterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Имя"
+            android:textSize="12sp"
+            android:textAlignment="viewStart"
+            android:textStyle="normal"
+            />
+        <EditText
+            android:id="@+id/etNameRegister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:inputType="textCapWords"
+            android:hint="Ваше имя"
+            />
+
+        <TextView
+            android:id="@+id/tvLastNameRegisterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Фамилия"
+            android:textSize="12sp"
+            android:textAlignment="viewStart"
+            android:textStyle="normal"
+            />
+        <EditText
+            android:id="@+id/etLastNameRegister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:inputType="textCapWords"
+            android:hint="Ваша фамилия"
+            />
+
+        <TextView
+            android:id="@+id/tvDateOfBirthRegisterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Дата рождения"
+            android:textSize="12sp"
+            android:textAlignment="viewStart"
+            android:textStyle="normal"
+            />
+        <EditText
+            android:id="@+id/etDateOfBirthRegister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="none"
+            android:hint="Дата рождения"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Зарегистрироваться"
+            android:textSize="24sp"
+            />
+    </LinearLayout>
+</ScrollView>

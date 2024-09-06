@@ -91,14 +91,12 @@
         android:layout_height="wrap_content"
 
         android:text="Войти"
-        android:drawableEnd=""
         android:textSize="24sp"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPasswordLogin"
         app:layout_constraintBottom_toTopOf="@id/tvForgotPassword"
-
         />
 
     <TextView
@@ -128,17 +126,16 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@id/btnRegister"
-        app:layout_constraintEnd_toEndOf="@id/btnRegister"
-        app:layout_constraintStart_toStartOf="@id/btnRegister" />
+        app:layout_constraintBottom_toTopOf="@id/btnGoToRegistration"
+        app:layout_constraintEnd_toEndOf="@id/btnGoToRegistration"
+        app:layout_constraintStart_toStartOf="@id/btnGoToRegistration" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnGoToRegistration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="Зарегистрироваться"
-        android:drawableEnd=""
+        android:text="Создать аккаунт"
         android:textSize="24sp"
 
         app:layout_constraintStart_toStartOf="parent"

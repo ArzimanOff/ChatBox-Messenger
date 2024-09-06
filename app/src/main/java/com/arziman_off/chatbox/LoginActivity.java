@@ -1,5 +1,7 @@
 package com.arziman_off.chatbox;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -22,18 +24,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPasswordLogin;
     private TextView tvForgotPassword;
     private MaterialButton btnLogin;
-    private MaterialButton btnRegister;
+    private MaterialButton btnGoToRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         initViews();
 
@@ -42,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = etEmailLogin.getText().toString().trim();
                 String password = etPasswordLogin.getText().toString().trim();
-
                 //TODO login
             }
         });
@@ -54,10 +49,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnGoToRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO открыть экранрегистрации
+                Intent intent = RegisterActivity.newIntent(LoginActivity.this);
+                startActivity(intent);
             }
         });
 
@@ -69,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
 
         btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
+        btnGoToRegistration = findViewById(R.id.btnGoToRegistration);
     }
+
+
 }
