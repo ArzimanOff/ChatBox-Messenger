@@ -9,21 +9,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "MainActivityLogs";
+    private static final String LOG_TAG = "NeedAppLogs";
 
     private EditText etEmailLogin;
     private EditText etPasswordLogin;
@@ -49,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = etEmailLogin.getText().toString().trim();
                 String password = etPasswordLogin.getText().toString().trim();
-                viewModel.login(email, password);
+                viewModel.logIn(email, password);
             }
         });
 
@@ -67,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         btnGoToRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = RegisterActivity.newIntent(LoginActivity.this);
+                Intent intent = RegistrationActivity.newIntent(LoginActivity.this);
                 startActivity(intent);
             }
         });

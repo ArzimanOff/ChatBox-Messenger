@@ -6,7 +6,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".UsersActivity">
 
   <ImageView
@@ -15,9 +14,11 @@
       android:layout_width="60dp"
       android:layout_height="60dp"
 
+      android:layout_margin="16dp"
+      android:padding="16dp"
+
       android:src="@drawable/log_out_icon"
       android:background="@drawable/icons_bg"
-      android:padding="16dp"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:contentDescription="log out btn" />
