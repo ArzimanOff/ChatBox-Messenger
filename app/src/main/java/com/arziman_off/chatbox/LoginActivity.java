@@ -91,13 +91,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
-                    //TODO открытие экрана чатов
-                    Toast.makeText(
-                            LoginActivity.this,
-                            "Пользователь авторизован",
-                            Toast.LENGTH_LONG
-                    ).show();
                     Log.d(LOG_TAG, "Пользователь авторизован " + firebaseUser.getUid());
+                    Intent intent = UsersActivity.newIntent(LoginActivity.this);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -112,5 +109,8 @@ public class LoginActivity extends AppCompatActivity {
         btnGoToRegistration = findViewById(R.id.btnGoToRegistration);
     }
 
+    public static Intent newIntent(Context context){
+        return new Intent(context, LoginActivity.class);
+    }
 
 }
