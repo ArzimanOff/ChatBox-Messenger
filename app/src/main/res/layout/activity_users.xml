@@ -6,7 +6,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsersActivity">
+    tools:context=".UsersActivity"
+    android:layout_gravity="top"
+    >
 
   <ImageView
       android:id="@+id/btnLogOut"
@@ -22,5 +24,22 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:contentDescription="log out btn" />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvUserChatsList"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/btnLogOut"
+      android:paddingHorizontal="16dp"
+      android:paddingTop="8dp"
+
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/user_item_view"
+      tools:itemCount="5"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

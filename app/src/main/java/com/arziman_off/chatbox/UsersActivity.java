@@ -12,14 +12,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class UsersActivity extends AppCompatActivity {
 
     private UsersViewModel viewModel;
     private ImageView btnLogOut;
+
+    private RecyclerView rvUsersChats;
+    private UsersChatsAdapter usersChatsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +37,27 @@ public class UsersActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         setupClickListeners();
         observeViewModel();
+
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            User user = new User(
+                    "id" + i,
+                    "name" + i,
+                    "lastName" + i,
+                    "09/03/2022",
+                    i,
+                    new Random().nextBoolean()
+            );
+            users.add(user);
+        }
+        usersChatsAdapter.setUsers(users);
     }
 
     private void initViews() {
         btnLogOut = findViewById(R.id.btnLogOut);
+        rvUsersChats = findViewById(R.id.rvUserChatsList);
+        usersChatsAdapter = new UsersChatsAdapter();
+        rvUsersChats.setAdapter(usersChatsAdapter);
     }
     private void setupClickListeners(){
         btnLogOut.setOnClickListener(new View.OnClickListener() {
