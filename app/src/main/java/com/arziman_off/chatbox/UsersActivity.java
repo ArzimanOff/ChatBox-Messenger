@@ -36,49 +36,15 @@ public class UsersActivity extends AppCompatActivity {
     private RecyclerView rvUsersChats;
     private UsersChatsAdapter usersChatsAdapter;
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference dbRef = firebaseDatabase.getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-
-
-        for (int i = 0; i < 20; i++) {
-            User user = new User(
-                    "id" + i,
-                    "name" + i,
-                    "lastName" + i,
-                    "09/03/2022",
-                    i,
-                    new Random().nextBoolean()
-            );
-            dbRef.push().setValue(user);
-        }
-
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                    Log.d(LOG_TAG, dataSnapshot.getValue(User.class).toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         initViews();
         viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         setupClickListeners();
         observeViewModel();
-
-        List<User> users = new ArrayList<>();
-
-        usersChatsAdapter.setUsers(users);
     }
 
     private void initViews() {
@@ -105,6 +71,12 @@ public class UsersActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+            }
+        });
+        viewModel.getUsersList().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> usersList) {
+                usersChatsAdapter.setUsers(usersList);
             }
         });
     }

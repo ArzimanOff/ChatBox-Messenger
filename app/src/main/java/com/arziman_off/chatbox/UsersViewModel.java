@@ -7,10 +7,22 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsersViewModel extends ViewModel {
     private FirebaseAuth auth;
     private MutableLiveData<FirebaseUser> user = new MutableLiveData<>();
+    private MutableLiveData<List<User>> usersList = new MutableLiveData<>();
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference usersRef;
 
     public UsersViewModel() {
         auth = FirebaseAuth.getInstance();
@@ -20,13 +32,51 @@ public class UsersViewModel extends ViewModel {
                 user.setValue(firebaseAuth.getCurrentUser());
             }
         });
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        usersRef = firebaseDatabase.getReference("Users");
+        showAllUsers();
     }
 
     public LiveData<FirebaseUser> getUser() {
         return user;
     }
 
-    public void logout(){
+    public LiveData<List<User>> getUsersList() {
+        return usersList;
+    }
+
+    public void logout() {
         auth.signOut();
+    }
+
+    private void showAllUsers() {
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                FirebaseUser currentUser = auth.getCurrentUser();
+                if (currentUser == null) {
+                    return;
+                }
+                List<User> usersFromDBList = new ArrayList<>();
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    User userFromDB = ds.getValue(User.class);
+                    if (userFromDB == null){
+                        return;
+                    }
+                    if (!userFromDB.getId()
+                            .equals(currentUser.getUid())) {
+                        usersFromDBList.add(userFromDB);
+                    }
+                }
+
+                usersList.setValue(usersFromDBList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
