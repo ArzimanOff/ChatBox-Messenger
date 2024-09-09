@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatActivity">
+
+    <ImageView
+        android:id="@+id/btnCloseChat"
+
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+
+        android:layout_margin="16dp"
+        android:padding="12dp"
+
+        android:src="@drawable/go_back_icon"
+        android:background="@drawable/icons_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="close chat btn" />
+
+    <View
+        android:id="@+id/userAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/btnCloseChat"
+        app:layout_constraintTop_toTopOf="@id/btnCloseChat"
+        app:layout_constraintBottom_toBottomOf="@id/btnCloseChat"
+        android:background="@drawable/icons_bg"
+        />
+    <View
+        android:id="@+id/onlineStatusBox"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:background="@drawable/offline"
+        app:layout_constraintEnd_toEndOf="@id/userAvatar"
+        app:layout_constraintBottom_toBottomOf="@id/userAvatar"
+        />
+    <TextView
+        android:id="@+id/userNameBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/main_color"
+        android:textSize="22sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/userAvatar"
+
+        app:layout_constraintTop_toTopOf="@id/userAvatar"
+        tools:text="Имя Фамилия" />
+    <TextView
+        android:id="@+id/userOtherInfoBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/userNameBox"
+        app:layout_constraintStart_toStartOf="@id/userNameBox"
+        android:textStyle="normal"
+        android:textColor="@color/main_color"
+
+        tools:text="Ж, 27"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/sent_message_view"
+
+        app:layout_constraintTop_toBottomOf="@id/userAvatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/etNewMessageInputBox"
+        />
+
+    <LinearLayout
+        android:id="@+id/etNewMessageInputBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/etNewMessageInput"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/msg_input_box_bg"
+            android:hint="Ваше сообщение"
+            android:inputType="textMultiLine"
+
+            android:padding="8dp"
+            android:textSize="20sp"
+            tools:text="Ok, let ‘s meet up this afternoon and do it together. Are you free?"
+            />
+        <ImageView
+            android:id="@+id/btnSendMessage"
+
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+
+            android:padding="4dp"
+            android:layout_marginStart="8dp"
+
+            android:src="@drawable/inactive_send_icon"
+            android:contentDescription="send message btn" />
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

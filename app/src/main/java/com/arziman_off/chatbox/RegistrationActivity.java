@@ -62,7 +62,10 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
                     Log.d(LOG_TAG, "Пользователь авторизован " + firebaseUser.getUid());
-                    Intent intent = UsersActivity.newIntent(RegistrationActivity.this);
+                    Intent intent = UsersActivity.newIntent(
+                            RegistrationActivity.this,
+                            firebaseUser.getUid()
+                    );
                     startActivity(intent);
                     finish();
                 }

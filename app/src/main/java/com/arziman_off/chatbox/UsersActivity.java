@@ -29,19 +29,20 @@ import java.util.List;
 import java.util.Random;
 
 public class UsersActivity extends AppCompatActivity {
-
+    private static final String EXTRA_CURRENT_USER_ID = "current_user_id";
     private static final String LOG_TAG = "NeedAppLogs";
     private UsersViewModel viewModel;
     private ImageView btnLogOut;
     private RecyclerView rvUsersChats;
     private UsersChatsAdapter usersChatsAdapter;
-
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
         initViews();
+        currentUserId = getIntent().getStringExtra(EXTRA_CURRENT_USER_ID);
         viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         setupClickListeners();
         observeViewModel();
@@ -58,6 +59,17 @@ public class UsersActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showLogoutConfirmationDialog();
+            }
+        });
+        usersChatsAdapter.setOnUserChatClickListener(new UsersChatsAdapter.OnUserChatClickListener() {
+            @Override
+            public void onUserChatClick(User user) {
+                Intent intent = ChatActivity.newIntent(
+                        UsersActivity.this,
+                        currentUserId,
+                        user.getId()
+                );
+                startActivity(intent);
             }
         });
     }
@@ -104,8 +116,9 @@ public class UsersActivity extends AppCompatActivity {
                 .show();
     }
 
-    public static Intent newIntent(Context context){
+    public static Intent newIntent(Context context, String currentUserId){
         Intent intent = new Intent(context, UsersActivity.class);
+        intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId);
         return intent;
     }
 }

@@ -87,7 +87,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
                     Log.d(LOG_TAG, "Пользователь авторизован " + firebaseUser.getUid());
-                    Intent intent = UsersActivity.newIntent(LoginActivity.this);
+                    Intent intent = UsersActivity.newIntent(
+                            LoginActivity.this,
+                            firebaseUser.getUid()
+                    );
                     startActivity(intent);
                     finish();
                 }
