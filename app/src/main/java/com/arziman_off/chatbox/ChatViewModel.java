@@ -1,5 +1,7 @@
 package com.arziman_off.chatbox;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -100,6 +102,24 @@ public class ChatViewModel extends ViewModel {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         error.setValue(e.getMessage());
+                    }
+                });
+    }
+
+    public void deleteChat(Boolean deleteForEveryone){
+        referenceMessages
+                .child(currentUserId)
+                .child(otherUserId)
+                .removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        if (deleteForEveryone){
+                            referenceMessages
+                                    .child(otherUserId)
+                                    .child(currentUserId)
+                                    .removeValue();
+                        }
                     }
                 });
     }

@@ -1,30 +1,30 @@
 package com.arziman_off.chatbox;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
@@ -32,6 +32,7 @@ public class ChatActivity extends AppCompatActivity {
     private static final String EXTRA_CURRENT_USER_ID = "current_user_id";
     private static final String EXTRA_OTHER_USER_ID = "other_user_id";
     private ImageView btnCloseChat;
+    private ImageView btnChatOptions;
     private View userAvatar;
     private View onlineStatusBox;
     private TextView userNameBox;
@@ -110,6 +111,13 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnChatOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);
+            }
+        });
     }
 
     private void observeViewModel(){
@@ -151,6 +159,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initViews() {
         btnCloseChat = findViewById(R.id.btnCloseChat);
+        btnChatOptions = findViewById(R.id.btnChatOptions);
         userAvatar = findViewById(R.id.userAvatar);
         onlineStatusBox = findViewById(R.id.onlineStatusBox);
         userNameBox = findViewById(R.id.userNameBox);
@@ -166,4 +175,92 @@ public class ChatActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_OTHER_USER_ID, otherUserId);
         return intent;
     }
+
+    // Метод для отображения программно созданного PopupMenu
+    private void showPopupMenu(View view) {
+
+
+        // Создаем объект PopupMenu
+        PopupMenu popupMenu = new PopupMenu(ChatActivity.this, view);
+
+        // Программно добавляем элементы меню
+        popupMenu.getMenu().add(0, 1, 0, "Поиск сообщения").setIcon(R.drawable.search_icon);  // Элемент 1 с иконкой
+        popupMenu.getMenu().add(0, 2, 1, "Удалить чат").setIcon(R.drawable.trash_icon);  // Элемент 2 с иконкой
+
+        // Указываем отображение иконок в меню
+        popupMenu.setForceShowIcon(true);
+
+        // Обработчик кликов по элементам меню
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case 1:
+                        // Действие для первого элемента
+                        Toast.makeText(
+                                ChatActivity.this,
+                                "Выбрано поиск сообщения",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        return true;
+                    case 2:
+                        // Действие для второго элемента
+                        showDeleteMessagesConfirmationDialog();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Показываем меню
+        popupMenu.show();
+    }
+
+    private void showDeleteMessagesConfirmationDialog() {
+        // Инфлейтим кастомный макет
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.dialod_messages_delete, null);
+
+        // Получаем CheckBox из кастомного вида
+        CheckBox cbDeleteForReceiver = dialogView.findViewById(R.id.cbDeleteForReceiver);
+
+        // Создаем MaterialAlertDialog
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Подтверждение удаления")
+                .setView(dialogView)  // Устанавливаем кастомный вид
+                .setPositiveButton("Да, удалить", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean deleteForReceiver = cbDeleteForReceiver.isChecked(); // Получаем состояние CheckBox
+
+                        if (deleteForReceiver) {
+                            viewModel.deleteChat(true);
+                            Toast.makeText(
+                                    ChatActivity.this,
+                                    "Сообщения удалены для всех!",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        } else {
+                            viewModel.deleteChat(false);
+                            Toast.makeText(
+                                    ChatActivity.this,
+                                    "Сообщения удалены для вас!",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Закрываем диалог
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(true)
+                .show();
+    }
+
+
 }
