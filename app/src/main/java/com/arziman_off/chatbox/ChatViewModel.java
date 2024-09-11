@@ -124,6 +124,14 @@ public class ChatViewModel extends ViewModel {
                 });
     }
 
+    public void setUserOnlineStatus(boolean onlineStatus){
+        referenceUsers
+                .child(currentUserId)
+                .child("onlineStatus")
+                .setValue(onlineStatus);
+
+    }
+
     public LiveData<List<Message>> getMessages() {
         return messages;
     }

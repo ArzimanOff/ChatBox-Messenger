@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.text.Format;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
@@ -151,7 +152,9 @@ public class ChatActivity extends AppCompatActivity {
         viewModel.getOtherUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                userNameBox.setText(user.getName());
+                userNameBox.setText(
+                        String.format("%s %s", user.getName(), user.getLastName())
+                );
                 userOtherInfoBox.setText(String.valueOf(user.getAge()));
                 setOnlineStatus(onlineStatusBox, user.isOnlineStatus());
             }
@@ -180,7 +183,6 @@ public class ChatActivity extends AppCompatActivity {
 
     // Метод для отображения программно созданного PopupMenu
     private void showPopupMenu(View view) {
-
 
         // Создаем объект PopupMenu
         PopupMenu popupMenu = new PopupMenu(ChatActivity.this, view);
@@ -262,6 +264,18 @@ public class ChatActivity extends AppCompatActivity {
                 })
                 .setCancelable(true)
                 .show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.setUserOnlineStatus(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        viewModel.setUserOnlineStatus(false);
     }
 
     public static Intent newIntent(Context context, String currentUserId, String otherUserId){

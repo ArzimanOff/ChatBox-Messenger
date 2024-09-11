@@ -116,6 +116,18 @@ public class UsersActivity extends AppCompatActivity {
                 .show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.setUserOnlineStatus(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        viewModel.setUserOnlineStatus(false);
+    }
+
     public static Intent newIntent(Context context, String currentUserId){
         Intent intent = new Intent(context, UsersActivity.class);
         intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId);

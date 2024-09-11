@@ -39,7 +39,9 @@ public class UsersChatsAdapter extends RecyclerView.Adapter<UsersChatsAdapter.Us
     @Override
     public void onBindViewHolder(@NonNull UsersChatsViewHolder holder, int position) {
         User user = users.get(position);
-        holder.userNameBox.setText(user.getName() + " " + user.getLastName());
+        holder.userNameBox.setText(
+                String.format("%s %s", user.getName(), user.getLastName())
+        );
         holder.userOtherInfoBox.setText(String.valueOf(user.getAge()));
         holder.messageCntIndicator.setText("");
         setOnlineStatus(holder.onlineStatusBox, user.isOnlineStatus());

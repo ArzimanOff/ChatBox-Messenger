@@ -22,7 +22,7 @@ public class UsersViewModel extends ViewModel {
     private MutableLiveData<List<User>> usersList = new MutableLiveData<>();
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference usersRef;
+    private DatabaseReference referenceUsers;
 
     public UsersViewModel() {
         auth = FirebaseAuth.getInstance();
@@ -33,7 +33,7 @@ public class UsersViewModel extends ViewModel {
             }
         });
         firebaseDatabase = FirebaseDatabase.getInstance();
-        usersRef = firebaseDatabase.getReference("Users");
+        referenceUsers = firebaseDatabase.getReference("Users");
         showAllUsers();
     }
 
@@ -49,7 +49,7 @@ public class UsersViewModel extends ViewModel {
         auth.signOut();
     }
     private void showAllUsers() {
-        usersRef.addValueEventListener(new ValueEventListener() {
+        referenceUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 FirebaseUser currentUser = auth.getCurrentUser();
@@ -77,5 +77,18 @@ public class UsersViewModel extends ViewModel {
 
             }
         });
+    }
+
+    public void setUserOnlineStatus(boolean onlineStatus){
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        if (firebaseUser == null){
+            return;
+        }
+
+        referenceUsers
+                .child(firebaseUser.getUid())
+                .child("onlineStatus")
+                .setValue(onlineStatus);
+
     }
 }
