@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +17,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +39,8 @@ public class UsersActivity extends AppCompatActivity {
     private RecyclerView rvUsersChats;
     private UsersChatsAdapter usersChatsAdapter;
     private String currentUserId;
+    private LinearLayout allUsersListEmptyPlaceholderBox;
+    private LottieAnimationView placeholderAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,12 @@ public class UsersActivity extends AppCompatActivity {
     private void initViews() {
         btnLogOut = findViewById(R.id.btnLogOut);
         rvUsersChats = findViewById(R.id.rvUserChatsList);
+        allUsersListEmptyPlaceholderBox = findViewById(R.id.allUsersListEmptyPlaceholderBox);
+        placeholderAnim = findViewById(R.id.allUsersListEmptyPlaceholderAnimation);
+        placeholderAnim.setRepeatCount(LottieDrawable.INFINITE);
+        placeholderAnim.setRepeatMode(LottieDrawable.RESTART);
+        placeholderAnim.playAnimation();
+
         usersChatsAdapter = new UsersChatsAdapter();
         rvUsersChats.setAdapter(usersChatsAdapter);
     }
@@ -88,7 +99,16 @@ public class UsersActivity extends AppCompatActivity {
         viewModel.getUsersList().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> usersList) {
-                usersChatsAdapter.setUsers(usersList);
+                if (!usersList.isEmpty()){
+                    allUsersListEmptyPlaceholderBox.setVisibility(View.GONE);
+                    rvUsersChats.setVisibility(View.VISIBLE);
+
+                    usersChatsAdapter.setUsers(usersList);
+                } else {
+                    allUsersListEmptyPlaceholderBox.setVisibility(View.VISIBLE);
+                    rvUsersChats.setVisibility(View.GONE);
+                }
+
             }
         });
     }

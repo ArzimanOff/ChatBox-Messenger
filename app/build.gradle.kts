@@ -40,6 +40,10 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
 
+    val lottieVersion = "6.5.2"
+    implementation("com.airbnb.android:lottie:$lottieVersion")
+
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
