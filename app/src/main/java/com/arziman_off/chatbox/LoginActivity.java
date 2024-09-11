@@ -17,9 +17,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-
     private static final String LOG_TAG = "NeedAppLogs";
-
     private EditText etEmailLogin;
     private EditText etPasswordLogin;
     private TextView tvForgotPassword;

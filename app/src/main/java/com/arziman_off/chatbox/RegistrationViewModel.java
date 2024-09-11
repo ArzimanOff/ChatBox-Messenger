@@ -57,7 +57,7 @@ public class RegistrationViewModel extends ViewModel {
                                 lastName,
                                 dateOfBirth,
                                 age,
-                                false
+                                true
                         );
                         usersRef.child(fbUser.getUid())
                                 .setValue(newUser);

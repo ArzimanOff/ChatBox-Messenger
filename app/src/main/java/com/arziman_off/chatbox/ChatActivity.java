@@ -153,8 +153,17 @@ public class ChatActivity extends AppCompatActivity {
             public void onChanged(User user) {
                 userNameBox.setText(user.getName());
                 userOtherInfoBox.setText(String.valueOf(user.getAge()));
+                setOnlineStatus(onlineStatusBox, user.isOnlineStatus());
             }
         });
+    }
+
+    private void setOnlineStatus(View onlineStatusBox, boolean onlineStatus) {
+        if (onlineStatus){
+            onlineStatusBox.setBackgroundResource(R.drawable.online);
+        } else {
+            onlineStatusBox.setBackgroundResource(R.drawable.offline);
+        }
     }
 
     private void initViews() {
@@ -167,13 +176,6 @@ public class ChatActivity extends AppCompatActivity {
         rvMessages = findViewById(R.id.rvMessages);
         etNewMessageInput = findViewById(R.id.etNewMessageInput);
         btnSendMessage = findViewById(R.id.btnSendMessage);
-    }
-
-    public static Intent newIntent(Context context, String currentUserId, String otherUserId){
-        Intent intent = new Intent(context, ChatActivity.class);
-        intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId);
-        intent.putExtra(EXTRA_OTHER_USER_ID, otherUserId);
-        return intent;
     }
 
     // Метод для отображения программно созданного PopupMenu
@@ -262,5 +264,11 @@ public class ChatActivity extends AppCompatActivity {
                 .show();
     }
 
+    public static Intent newIntent(Context context, String currentUserId, String otherUserId){
+        Intent intent = new Intent(context, ChatActivity.class);
+        intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId);
+        intent.putExtra(EXTRA_OTHER_USER_ID, otherUserId);
+        return intent;
+    }
 
 }

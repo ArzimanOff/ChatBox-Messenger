@@ -60,7 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         viewModel.getUser().observe(this, new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
-                if (firebaseUser != null){
+                if (firebaseUser != null) {
                     Log.d(LOG_TAG, "Пользователь авторизован " + firebaseUser.getUid());
                     Intent intent = UsersActivity.newIntent(
                             RegistrationActivity.this,
@@ -82,7 +82,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 String name = getInfoFrom(etNameRegister);
                 String lastName = getInfoFrom(etLastNameRegister);
                 String dateOfBirth = getInfoFrom(etDateOfBirthRegister);
-
                 viewModel.signUp(
                         email,
                         password,
@@ -96,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
         etDateOfBirthRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userAge = getDateOfBirth();
+                getDateOfBirth();
             }
         });
         btnGoBack.setOnClickListener(new View.OnClickListener() {
@@ -121,25 +120,26 @@ public class RegistrationActivity extends AppCompatActivity {
         btnGoBack = findViewById(R.id.btnGoBack);
     }
 
-    private int getDateOfBirth(){
+    private void getDateOfBirth() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(RegistrationActivity.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                RegistrationActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Устанавливаем выбранную дату в EditText
-                        etDateOfBirthRegister.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        etDateOfBirthRegister.setText(dayOfMonth + " | " + (monthOfYear + 1) + " | " + year);
+                        calculateAge(year, month, day);
                     }
                 }, year, month, day);
         datePickerDialog.show();
-        return calculateAge(year, month, day);
     }
 
-    private int calculateAge(int year, int month, int day) {
+    private void calculateAge(int year, int month, int day) {
         // Текущая дата
         Calendar today = Calendar.getInstance();
 
@@ -155,11 +155,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 (today.get(Calendar.MONTH) == birthDate.get(Calendar.MONTH) && today.get(Calendar.DAY_OF_MONTH) < birthDate.get(Calendar.DAY_OF_MONTH))) {
             age--;
         }
-
-        return age;
+        userAge = age;
     }
 
-    public static Intent newIntent(Context context){
+    public static Intent newIntent(Context context) {
         return new Intent(context, RegistrationActivity.class);
     }
 }

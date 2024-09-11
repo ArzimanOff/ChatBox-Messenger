@@ -48,7 +48,6 @@ public class UsersViewModel extends ViewModel {
     public void logout() {
         auth.signOut();
     }
-
     private void showAllUsers() {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
