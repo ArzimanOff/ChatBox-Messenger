@@ -18,6 +18,11 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     private static final int VIEW_TYPE_RECEIVED_MESSAGE = 101;
     private String currentUserId;
     private List<Message> messages = new ArrayList<>();
+    private OnNeedScrollDownListener onNeedScrollDownListener;
+
+    public void setOnNeedScrollDownListener(OnNeedScrollDownListener onNeedScrollDownListener) {
+        this.onNeedScrollDownListener = onNeedScrollDownListener;
+    }
 
     public MessagesAdapter(String currentUserId) {
         this.currentUserId = currentUserId;
@@ -59,8 +64,11 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message message = messages.get(position);
         holder.tvMessageText.setText(message.getText());
-
         holder.tvMessageDate.setText(message.getSentAt());
+
+        if (onNeedScrollDownListener != null){
+            onNeedScrollDownListener.onScrollDown(position < (messages.size() - 6));
+        }
     }
 
     @Override
@@ -68,6 +76,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
         return messages.size();
     }
 
+    interface OnNeedScrollDownListener{
+        void onScrollDown(boolean mode);
+    }
     static class MessageViewHolder extends RecyclerView.ViewHolder{
         private TextView tvMessageText;
         private TextView tvMessageDate;

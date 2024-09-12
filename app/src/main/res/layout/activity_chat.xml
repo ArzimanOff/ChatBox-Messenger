@@ -21,7 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="close chat btn" />
-
     <ImageView
         android:id="@+id/btnChatOptions"
 
@@ -121,6 +120,7 @@
             android:background="@drawable/msg_input_box_bg"
             android:hint="Ваше сообщение"
             android:inputType="textMultiLine"
+            android:maxLines="4"
 
             android:padding="8dp"
             android:textSize="20sp"
@@ -139,6 +139,24 @@
             android:contentDescription="send message btn" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/btnScrollToDown"
+
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+
+        android:layout_margin="16dp"
+        android:padding="8dp"
+
+        android:src="@drawable/arrow_down"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/message_indicator"
+        app:layout_constraintBottom_toTopOf="@id/etNewMessageInputBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="scroll chat to down btn"
+        android:visibility="visible"
+        />
 
 
 

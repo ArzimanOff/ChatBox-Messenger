@@ -40,6 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     private TextView userOtherInfoBox;
     private EditText etNewMessageInput;
     private ImageView btnSendMessage;
+    private ImageView btnScrollToDown;
     private RecyclerView rvMessages;
     private MessagesAdapter messagesAdapter;
     private String currentUserId;
@@ -119,6 +120,22 @@ public class ChatActivity extends AppCompatActivity {
                 showPopupMenu(v);
             }
         });
+        btnScrollToDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rvMessages.scrollToPosition(messagesAdapter.getItemCount() - 1);
+            }
+        });
+        messagesAdapter.setOnNeedScrollDownListener(new MessagesAdapter.OnNeedScrollDownListener() {
+            @Override
+            public void onScrollDown(boolean mode) {
+                if (!mode){
+                    btnScrollToDown.setVisibility(View.GONE);
+                } else {
+                    btnScrollToDown.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void observeViewModel(){
@@ -126,6 +143,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Message> messages) {
                 messagesAdapter.setMessages(messages);
+                rvMessages.scrollToPosition(messages.size() - 1);
             }
         });
         viewModel.getError().observe(this, new Observer<String>() {
@@ -172,6 +190,7 @@ public class ChatActivity extends AppCompatActivity {
     private void initViews() {
         btnCloseChat = findViewById(R.id.btnCloseChat);
         btnChatOptions = findViewById(R.id.btnChatOptions);
+        btnScrollToDown = findViewById(R.id.btnScrollToDown);
         userAvatar = findViewById(R.id.userAvatar);
         onlineStatusBox = findViewById(R.id.onlineStatusBox);
         userNameBox = findViewById(R.id.userNameBox);
